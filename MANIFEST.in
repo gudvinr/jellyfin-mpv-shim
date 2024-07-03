@@ -1,4 +1,5 @@
-include jellyfin_mpv_shim/systray.png
+include jellyfin_mpv_shim/icon-transparent.png
+include jellyfin_mpv_shim/icon-transparent-white.svg
 recursive-include jellyfin_mpv_shim/integration *
 recursive-include jellyfin_mpv_shim/default_shader_pack *
 recursive-include jellyfin_mpv_shim/messages *.mo

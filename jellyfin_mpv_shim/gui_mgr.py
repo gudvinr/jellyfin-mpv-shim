@@ -1,4 +1,5 @@
 from PIL import Image
+from cairosvg import svg2png
 from collections import deque
 import subprocess
 from multiprocessing import Process, Queue
@@ -6,6 +7,7 @@ import threading
 import sys
 import logging
 import queue
+import io
 
 from .constants import USER_APP_NAME, APP_NAME
 from .conffile import confdir
@@ -459,7 +461,13 @@ class STrayProcess(Process):
         ]
 
         icon = Icon(APP_NAME, title=USER_APP_NAME, menu=Menu(*menu_items))
-        icon.icon = Image.open(get_resource("systray.png"))
+
+        image = io.BytesIO(svg2png(url=get_resource("icon-transparent-white.svg"), output_height=40, output_width=40))
+        icon.icon = Image.open(image)
+
+        if icon.icon is None:
+            icon.icon = Image.open(get_resource("icon-transparent.png"))
+
         self.icon_stop = icon.stop
 
         def setup(icon: Icon):

@@ -9,7 +9,7 @@ extras = {
     "gui": ["pystray", "pillow"],
     "mirror": ["Jinja2", "pywebview>=3.3.1"],
     "discord": ["pypresence"],
-    "all": ["Jinja2", "pywebview>=3.3.1", "pystray", "pypresence", "pillow"],
+    "all": ["Jinja2", "pywebview>=3.3.1", "pystray", "pypresence", "pillow", "cairosvg"],
 }
 
 if sys.platform.startswith("win32"):
@@ -49,7 +49,7 @@ setup(
     packages=packages,
     package_data={
         "jellyfin_mpv_shim.display_mirror": ["*.css", "*.html"],
-        "jellyfin_mpv_shim": ["systray.png"],
+        "jellyfin_mpv_shim": ["icon-transparent.png", "icon-transparent-white.svg"],
     },
     entry_points={
         "console_scripts": ["jellyfin-mpv-shim=jellyfin_mpv_shim.mpv_shim:main"]
