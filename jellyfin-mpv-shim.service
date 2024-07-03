@@ -1,0 +1,21 @@
+[Unit]
+Description=Jellyfin MPV Shim - MPV Cast Client for Jellyfin
+After=network-online.target
+
+[Service]
+# Hardening
+SystemCallArchitectures=native
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+# Check if server is accessible
+ExecCondition=sh -c '\
+    curl --fail $( \
+        cat "${XDG_CONFIG_HOME:-$HOME/.config}"/jellyfin-mpv-shim/cred.json | grep -o '"'"'"address": "[^"]*'"'"' | grep -o '"'"'[^"]*$'"'"' \
+    ) || exit 255 \
+'
+ExecStart=jellyfin-mpv-shim
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
